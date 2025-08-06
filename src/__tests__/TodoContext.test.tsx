@@ -177,7 +177,7 @@ describe('TodoContext', () => {
 
     // Should show quota exceeded toast
     expect(
-      screen.getByText('Storage quota exceeded – your latest changes may not be saved')
+      screen.getByText('Storage quota exceeded - your latest changes may not be saved')
     ).toBeInTheDocument();
   });
 });

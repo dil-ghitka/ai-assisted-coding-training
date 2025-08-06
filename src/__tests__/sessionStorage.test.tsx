@@ -146,7 +146,7 @@ describe('sessionStorage utilities', () => {
       expect(result.success).toBe(false);
       expect(result.quotaExceeded).toBe(true);
       expect(console.warn).toHaveBeenCalledWith(
-        'Storage quota exceeded – your latest changes may not be saved'
+        'Storage quota exceeded - your latest changes may not be saved'
       );
     });
 

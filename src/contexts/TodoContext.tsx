@@ -24,7 +24,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     const { quotaExceeded } = saveTodos(todos);
     if (quotaExceeded) {
-      showToast('Storage quota exceeded – your latest changes may not be saved', 'warning');
+      showToast('Storage quota exceeded - your latest changes may not be saved', 'warning');
     }
   }, [todos, showToast]);
 

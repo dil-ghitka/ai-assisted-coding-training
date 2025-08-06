@@ -65,7 +65,7 @@ export const saveTodos = (todos: Todo[]): { success: boolean; quotaExceeded: boo
     return { success: true, quotaExceeded: false };
   } catch (error) {
     if (error instanceof Error && error.name === 'QuotaExceededError') {
-      console.warn('Storage quota exceeded – your latest changes may not be saved');
+      console.warn('Storage quota exceeded - your latest changes may not be saved');
       return { success: false, quotaExceeded: true };
     }
     console.error('Failed to save todos to sessionStorage:', error);
