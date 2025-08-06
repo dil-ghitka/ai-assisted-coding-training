@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { Todo } from '../types/Todo';
 import { v4 as uuidv4 } from 'uuid';
 import { TodoContext } from './TodoContextType';
@@ -7,14 +7,21 @@ import { useToast } from '../components/Toast/useToast';
 import { Toast } from '../components/Toast/Toast';
 
 export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [todos, setTodos] = useState<Todo[]>(() => {
-    // Initialize with data from sessionStorage
-    return loadTodos();
-  });
+  const [todos, setTodos] = useState<Todo[]>([]);
   const { toast, showToast, hideToast } = useToast();
+  const isInitialMount = useRef(true);
 
-  // Persist todos to sessionStorage whenever they change
+  // Load todos from sessionStorage on mount
   useEffect(() => {
+    setTodos(loadTodos());
+  }, []);
+
+  // Persist todos to sessionStorage whenever they change, but skip initial load
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     const { quotaExceeded } = saveTodos(todos);
     if (quotaExceeded) {
       showToast('Storage quota exceeded – your latest changes may not be saved', 'warning');
